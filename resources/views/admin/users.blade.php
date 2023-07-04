@@ -1,6 +1,5 @@
 <x-admin-panel>
-dashboard
-
+Pagina de usuarios
 </x-admin-panel>
 
 

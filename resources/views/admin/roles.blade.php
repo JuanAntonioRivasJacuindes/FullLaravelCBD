@@ -1,5 +1,6 @@
 <x-admin-panel>
-dashboard
+pagina de roles
+
 
 </x-admin-panel>
 

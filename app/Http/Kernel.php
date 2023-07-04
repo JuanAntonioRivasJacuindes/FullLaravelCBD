@@ -28,6 +28,10 @@ class Kernel extends HttpKernel
      *
      * @var array<string, array<int, class-string|string>>
      */
+    protected $routeMiddleware = [
+        //
+        'permission' => \App\Http\Middleware\PermissionMiddleware::class,
+];
     protected $middlewareGroups = [
         'web' => [
             \App\Http\Middleware\EncryptCookies::class,

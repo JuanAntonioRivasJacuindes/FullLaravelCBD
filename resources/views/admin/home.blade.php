@@ -1,5 +1,5 @@
 <x-admin-panel>
-dashboard
+este es el home
 
 </x-admin-panel>
 

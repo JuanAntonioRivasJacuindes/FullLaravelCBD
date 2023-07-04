@@ -8,19 +8,7 @@
 <aside id="default-sidebar" class="fixed top-15 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
     <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
 
-        <ul class="space-y-2 font-medium">
-            <li>
-                <x-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('admin.dashboard')">
-                    {{ __('Dashboard') }}
-                </x-responsive-nav-link>
-            </li>
-            <li>
-                <x-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('admin.users')">
-                   Usuarios
-                </x-responsive-nav-link>
-            </li>
-
-        </ul>
+      <x-admin-menu-component></x-admin-menu-component>
     </div>
 </aside>
 
