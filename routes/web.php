@@ -16,8 +16,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     $data = [
         'john', 'doe'
-      ];
-      return view('welcome')->with('data', json_encode($data));
+    ];
+    return view('welcome')->with('data', json_encode($data));
 });
 
 Route::middleware([
@@ -28,4 +28,13 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+});
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified'
+])->group(function () {
+    Route::get('admin/dashboard', function () {
+        return view('admin.dashboard');
+    })->name('admin.dashboard');
 });
