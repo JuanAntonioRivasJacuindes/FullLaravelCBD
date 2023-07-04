@@ -1,1 +1,4 @@
-<img class="w-10" src="/img/CBDIEZ FINAL-01.png"></img>
+<div class="w-10">
+
+    <img class="w-full" src="/img/CBDIEZ FINAL-01.png"></img>
+</div>
