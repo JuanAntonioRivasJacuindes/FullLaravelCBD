@@ -20,33 +20,27 @@ Route::get('/', function () {
     return view('welcome')->with('data', json_encode($data));
 });
 
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified'
-])->group(function () {
+Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
 });
 
 
-Route::prefix('admin')->middleware(['auth','admin'])->group(function () {
+Route::prefix('admin')->middleware(['auth','permission:access_dashboard'])->group(function () {
     // Rutas protegidas por los middlewares "auth" y "AdminMiddleware"
-
-
     Route::get('/users', function () {
         return view('admin.users');
-    })->name('admin.users');
+    })->middleware('permission:read_users')->name('admin.users');
 
     Route::get('/', function () {
         return view('admin.dashboard');
-   
     })->name('admin.dashboard');
+
     Route::get('/roles', function () {
         return view('admin.roles');
    
-    })->name('admin.roles');
+    })->middleware('permission:read_roles')->name('admin.roles');
 
     // Otras rutas de administración...
 });

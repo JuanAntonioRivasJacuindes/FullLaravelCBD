@@ -19,9 +19,9 @@ class PermissionMiddleware
         if (Auth::guest()) {
             return redirect('/login');
         }
-        if (! $request->user()->can($permission)) {
-           abort(403);
+        if ( $request->user()->can($permission)|| $request->user()->hasRole('Administrator')) {
+            return $next($request);
         }
-        return $next($request);
+        abort(403);
     }
 }
