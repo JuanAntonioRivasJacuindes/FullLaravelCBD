@@ -14,7 +14,7 @@ class AdminMiddleware
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle($request, Closure $next, $permission)
+    public function handle($request, Closure $next)
     {
         if (Auth::guest()) {
             return redirect('/login');
