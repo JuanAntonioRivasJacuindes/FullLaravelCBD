@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->text('slug_url');
+            $table->decimal('price', 8, 2);
             $table->string('stripe_id');
             $table->string('stripe_default_price');
             $table->timestamps();

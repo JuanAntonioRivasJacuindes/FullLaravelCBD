@@ -1,5 +1,6 @@
 <x-admin-panel>
-este es el home
+productos
+
 
 </x-admin-panel>
 

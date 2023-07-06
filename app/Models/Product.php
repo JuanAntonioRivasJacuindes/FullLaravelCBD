@@ -13,6 +13,7 @@ class Product extends Model
         'name',
         'slug_url',
         'stripe_id',
+        'price',
         'stripe_default_price'
     ];
 }

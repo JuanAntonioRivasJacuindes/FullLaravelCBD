@@ -5,13 +5,18 @@
         </x-responsive-nav-link>
     </li>
     <li>
-        <x-responsive-nav-link href="{{ route('admin.users') }}" :active="request()->routeIs('admin.users')">
+        <x-responsive-nav-link href="{{ route('users.index') }}" :active="request()->routeIs('users.index')">
             Usuarios
         </x-responsive-nav-link>
     </li>
     <li>
-        <x-responsive-nav-link href="{{ route('admin.roles') }}" :active="request()->routeIs('admin.roles')">
+        <x-responsive-nav-link href="{{ route('roles.index') }}" :active="request()->routeIs('roles.index')">
             Roles y permisos
+        </x-responsive-nav-link>
+    </li>
+    <li>
+        <x-responsive-nav-link href="{{ route('products.index') }}" :active="request()->routeIs('products.index')">
+            Productos
         </x-responsive-nav-link>
     </li>
 

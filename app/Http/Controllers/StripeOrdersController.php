@@ -2,19 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Product;
+use App\Models\StripeOrders;
 use Illuminate\Http\Request;
 
-class ProductController extends Controller
+class StripeOrdersController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $products = Product::all();
-
-        return view('admin.products.index', compact('products'));
+        //
     }
 
     /**
@@ -30,13 +28,13 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request);
+        //
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Product $product)
+    public function show(StripeOrders $stripeOrders)
     {
         //
     }
@@ -44,7 +42,7 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Product $product)
+    public function edit(StripeOrders $stripeOrders)
     {
         //
     }
@@ -52,7 +50,7 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Product $product)
+    public function update(Request $request, StripeOrders $stripeOrders)
     {
         //
     }
@@ -60,7 +58,7 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Product $product)
+    public function destroy(StripeOrders $stripeOrders)
     {
         //
     }
