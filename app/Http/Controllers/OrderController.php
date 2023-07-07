@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\StripeOrders;
+use App\Models\Order;
 use Illuminate\Http\Request;
 
-class StripeOrdersController extends Controller
+class OrderController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -34,7 +34,7 @@ class StripeOrdersController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(StripeOrders $stripeOrders)
+    public function show(Order $order)
     {
         //
     }
@@ -42,7 +42,7 @@ class StripeOrdersController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(StripeOrders $stripeOrders)
+    public function edit(Order $order)
     {
         //
     }
@@ -50,7 +50,7 @@ class StripeOrdersController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, StripeOrders $stripeOrders)
+    public function update(Request $request, Order $order)
     {
         //
     }
@@ -58,7 +58,7 @@ class StripeOrdersController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(StripeOrders $stripeOrders)
+    public function destroy(Order $order)
     {
         //
     }

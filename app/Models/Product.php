@@ -9,11 +9,19 @@ class Product extends Model
 {
     use HasFactory;
 
-    protected $fillable=[
+    protected $fillable = [
         'name',
         'slug_url',
-        'stripe_id',
+        'description',
         'price',
-        'stripe_default_price'
+        'stock',
+        'product_code',
+        'category_id',
+        'status',
+        'weight',
+        'length',
+        'width',
+        'height'
     ];
+
 }

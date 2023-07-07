@@ -5,16 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class StripeOrders extends Model
+class Category extends Model
 {
     use HasFactory;
-    protected $fillable = [
-   
-        'amount',
-        'description',
-        'status'
-       
-  
-    ];
-
 }

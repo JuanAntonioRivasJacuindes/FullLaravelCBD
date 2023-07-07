@@ -15,9 +15,17 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->text('slug_url');
+            $table->text('description')->nullable();
             $table->decimal('price', 8, 2);
-            $table->string('stripe_id');
-            $table->string('stripe_default_price');
+            $table->integer('stock')->default(0);
+            $table->string('product_code')->unique()->nullable();
+            $table->unsignedBigInteger('category_id')->nullable();
+            $table->string('status')->default('disabled');
+            $table->decimal('weight', 8, 2)->nullable();
+            $table->decimal('length', 8, 2)->nullable();
+            $table->decimal('width', 8, 2)->nullable();
+            $table->decimal('height', 8, 2)->nullable();
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('set null');
             $table->timestamps();
         });
     }
