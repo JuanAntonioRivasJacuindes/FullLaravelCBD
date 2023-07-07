@@ -8,5 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class StripeOrders extends Model
 {
     use HasFactory;
+    protected $fillable = [
+   
+        'amount',
+        'description',
+        'status'
+       
+  
+    ];
 
 }

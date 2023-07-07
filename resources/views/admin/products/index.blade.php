@@ -1,7 +1,5 @@
 <x-admin-panel>
-productos
-
-
+@livewire('product-component')
 </x-admin-panel>
 
 

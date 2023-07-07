@@ -7,49 +7,87 @@ use Spatie\Permission\Models\Role;
 
 class RoleComponent extends Component
 {
-    public $name;
     public $roles;
+    public $role;
+    public $isOpen = false;
+    public $isEditing = false;
+
+    protected $rules = [
+        'role.name' => 'required',
+    ];
+
+    public function mount()
+    {
+        $this->resetRole();
+        $this->roles = Role::all();
+    }
 
     public function render()
     {
-        $this->roles = Role::all();
-
         return view('livewire.role-component');
     }
 
     public function create()
     {
-        Role::create([
-            'name' => $this->name,
-        ]);
-
-        $this->name = '';
-
-        $this->emit('roleCreated');
+        $this->resetValidation();
+        $this->resetRole();
+        $this->isOpen = true;
+        $this->isEditing = false;
     }
 
     public function edit($id)
     {
-        $role = Role::find($id);
-        $this->name = $role->name;
+        $this->resetValidation();
+        $this->role = Role::findOrFail($id);
+        $this->isOpen = true;
+        $this->isEditing = true;
     }
 
-    public function update($id)
+    public function store()
     {
-        $role = Role::find($id);
-        $role->update([
-            'name' => $this->name,
+        $this->validate();
+
+        Role::create([
+            'name' => $this->role['name'],
         ]);
 
-        $this->name = '';
+        session()->flash('message', 'Rol creado exitosamente.');
 
-        $this->emit('roleUpdated');
+        $this->closeModal();
+        $this->roles = Role::all();
+    }
+
+    public function update()
+    {
+        $this->validate();
+
+        $this->role->save();
+
+        session()->flash('message', 'Rol actualizado exitosamente.');
+
+        $this->closeModal();
+        $this->roles = Role::all();
     }
 
     public function delete($id)
     {
-        Role::find($id)->delete();
+        Role::findOrFail($id)->delete();
+        session()->flash('message', 'Rol eliminado exitosamente.');
+        $this->roles = Role::all();
+    }
 
-        $this->emit('roleDeleted');
+    public function closeModal()
+    {
+        $this->isOpen = false;
+        $this->isEditing = false;
+        $this->resetValidation();
+        $this->resetRole();
+    }
+
+    private function resetRole()
+    {
+        $this->role = [
+            'name' => null,
+        ];
     }
 }

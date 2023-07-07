@@ -4,66 +4,97 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class UserComponent extends Component
 {
-    public $name;
-    public $email;
-    public $password;
     public $users;
+    public $user;
+    public $isOpen = false;
+    public $isEditing = false;
+
+    protected $rules = [
+        'user.name' => 'required',
+        'user.email' => 'required|email',
+        'user.password' => 'required|min:6',
+    ];
+
+    public function mount()
+    {
+        $this->resetUser();
+        $this->users = User::all();
+    }
 
     public function render()
     {
-        $this->users = User::all();
-
         return view('livewire.user-component');
     }
 
     public function create()
     {
-        User::create([
-            'name' => $this->name,
-            'email' => $this->email,
-            'password' => bcrypt($this->password),
-        ]);
-
-        $this->resetInputFields();
-
-        $this->emit('userCreated');
+        $this->resetValidation();
+        $this->resetUser();
+        $this->isOpen = true;
+        $this->isEditing = false;
     }
 
     public function edit($id)
     {
-        $user = User::find($id);
-        $this->name = $user->name;
-        $this->email = $user->email;
+        $this->resetValidation();
+        $this->user = User::findOrFail($id);
+        $this->isOpen = true;
+        $this->isEditing = true;
     }
 
-    public function update($id)
+    public function store()
     {
-        $user = User::find($id);
-        $user->update([
-            'name' => $this->name,
-            'email' => $this->email,
-            'password' => bcrypt($this->password),
+        $this->validate();
+
+        User::create([
+            'name' => $this->user['name'],
+            'email' => $this->user['email'],
+            'password' => Hash::make($this->user['password']),
         ]);
 
-        $this->resetInputFields();
+        session()->flash('message', 'Usuario creado exitosamente.');
 
-        $this->emit('userUpdated');
+        $this->closeModal();
+        $this->users = User::all();
+    }
+
+    public function update()
+    {
+        $this->validate();
+
+        $this->user->save();
+
+        session()->flash('message', 'Usuario actualizado exitosamente.');
+
+        $this->closeModal();
+        $this->users = User::all();
     }
 
     public function delete($id)
     {
-        User::find($id)->delete();
-
-        $this->emit('userDeleted');
+        User::findOrFail($id)->delete();
+        session()->flash('message', 'Usuario eliminado exitosamente.');
+        $this->users = User::all();
     }
 
-    private function resetInputFields()
+    public function closeModal()
     {
-        $this->name = '';
-        $this->email = '';
-        $this->password = '';
+        $this->isOpen = false;
+        $this->isEditing = false;
+        $this->resetValidation();
+        $this->resetUser();
+    }
+
+    private function resetUser()
+    {
+        $this->user = [
+            'name' => null,
+            'email' => null,
+            'password' => null,
+        ];
     }
 }
