@@ -1,67 +1,112 @@
 <?php
-
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
+use Illuminate\Http\Request;
 
 class RoleController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
+        // Obtener todos los roles
         $roles = Role::all();
 
-        return view('admin.roles.index', compact('roles'));
+        // Retornar vista o respuesta JSON en función del tipo de solicitud
+        if (request()->wantsJson()) {
+            return response()->json($roles, 200);
+        } else {
+            return view('roles.index', compact('roles'));
+        }
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        // Retornar vista o respuesta JSON en función del tipo de solicitud
+        if (request()->wantsJson()) {
+            return response()->json(['message' => 'Create form'], 200);
+        } else {
+            return view('roles.create');
+        }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        // Validación de los campos requeridos
+        $validatedData = $request->validate([
+            'name' => 'required',
+        ]);
+
+        // Crear un nuevo rol con el nombre proporcionado
+        $role = Role::create($validatedData);
+
+        // Retornar vista o respuesta JSON en función del tipo de solicitud
+        if (request()->wantsJson()) {
+            return response()->json(['message' => 'Rol creado exitosamente','role'=>$role], 201);
+        } else {
+            return redirect()->route('roles.index')->with('success', 'Rol creado exitosamente');
+        }
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function show($id)
     {
-        //
+        // Obtener el rol por su ID
+        $role = Role::findOrFail($id);
+
+        // Retornar vista o respuesta JSON en función del tipo de solicitud
+        if (request()->wantsJson()) {
+            return response()->json($role, 200);
+        } else {
+            return view('roles.show', compact('role'));
+        }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function edit($id)
     {
-        //
+        // Obtener el rol por su ID
+        $role = Role::findOrFail($id);
+
+        // Retornar vista o respuesta JSON en función del tipo de solicitud
+        if (request()->wantsJson()) {
+            return response()->json(['message' => 'Edit form'], 200);
+        } else {
+            return view('roles.edit', compact('role'));
+        }
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        // Obtener el rol por su ID
+        $role = Role::findOrFail($id);
+
+        // Validación de los campos requeridos
+        $validatedData = $request->validate([
+            'name' => 'required',
+        ]);
+
+        // Actualizar el nombre del rol
+        $role->update($validatedData);
+
+        // Retornar vista o respuesta JSON en función del tipo de solicitud
+        if (request()->wantsJson()) {
+            return response()->json(['message' => 'Rol actualizado exitosamente'], 200);
+        } else {
+            return redirect()->route('roles.index')->with('success', 'Rol actualizado exitosamente');
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        // Obtener el rol por su ID
+        $role = Role::findOrFail($id);
+
+        // Eliminar el rol
+        $role->delete();
+
+        // Retornar vista o respuesta JSON en función del tipo de solicitud
+        if (request()->wantsJson()) {
+            return response()->json(['message' => 'Rol eliminado exitosamente'], 200);
+        } else {
+            return redirect()->route('roles.index')->with('success', 'Rol eliminado exitosamente');
+        }
     }
 }

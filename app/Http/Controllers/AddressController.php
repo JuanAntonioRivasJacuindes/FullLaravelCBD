@@ -1,55 +1,130 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\Address;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class AddressController extends Controller
 {
     public function index()
     {
-        $addresses = Address::all();
+        // Obtener todas las direcciones del usuario autenticado
+        $addresses = auth()->user()->addresses;
 
-        return view('addresses.index', compact('addresses'));
+        // Retornar vista o respuesta JSON en función del tipo de solicitud
+        if (request()->wantsJson()) {
+            return response()->json($addresses, 200);
+        } else {
+            return view('addresses.index', compact('addresses'));
+        }
     }
 
     public function create()
     {
-        return view('addresses.create');
+        // Retornar vista o respuesta JSON en función del tipo de solicitud
+        if (request()->wantsJson()) {
+            return response()->json(['message' => 'Create form'], 200);
+        } else {
+            return view('addresses.create');
+        }
     }
 
     public function store(Request $request)
     {
-        $user = Auth::user(); // Obtener el usuario autenticado
-    
-        $address = new Address($request->all());
-        $address->user_id = $user->id; // Asociar el ID del usuario a la dirección
-        $address->save();
-    
-        return redirect()->route('addresses.index')
-            ->with('success', 'Dirección creada exitosamente.');
+        // Validación de los campos requeridos
+        $validatedData = $request->validate([
+            'full_name' => 'required',
+            'address' => 'required',
+            'country' => 'required',
+            'phone' => 'required',
+            'is_default' => 'boolean',
+        ]);
+
+        // Crear una nueva dirección para el usuario autenticado
+        $address = auth()->user()->addresses()->create($validatedData);
+
+        // Establecer la dirección como predeterminada si se marca como tal
+        if ($validatedData['is_default']) {
+            auth()->user()->setDefaultAddress($address->id);
+        }
+
+        // Retornar vista o respuesta JSON en función del tipo de solicitud
+        if (request()->wantsJson()) {
+            return response()->json(['message' => 'Dirección creada exitosamente'], 201);
+        } else {
+            return redirect()->route('addresses.index')->with('success', 'Dirección creada exitosamente');
+        }
     }
 
-    public function edit(Address $address)
+    public function show($id)
     {
-        return view('addresses.edit', compact('address'));
+        // Obtener la dirección por su ID
+        $address = Address::findOrFail($id);
+
+        // Retornar vista o respuesta JSON en función del tipo de solicitud
+        if (request()->wantsJson()) {
+            return response()->json($address, 200);
+        } else {
+            return view('addresses.show', compact('address'));
+        }
     }
 
-    public function update(Request $request, Address $address)
+    public function edit($id)
     {
-        $address->update($request->all());
+        // Obtener la dirección por su ID
+        $address = Address::findOrFail($id);
 
-        return redirect()->route('addresses.index')
-            ->with('success', 'Dirección actualizada exitosamente.');
+        // Retornar vista o respuesta JSON en función del tipo de solicitud
+        if (request()->wantsJson()) {
+            return response()->json(['message' => 'Edit form'], 200);
+        } else {
+            return view('addresses.edit', compact('address'));
+        }
     }
 
-    public function destroy(Address $address)
+    public function update(Request $request, $id)
     {
+        // Obtener la dirección por su ID
+        $address = Address::findOrFail($id);
+
+        // Validación de los campos requeridos
+        $validatedData = $request->validate([
+            'full_name' => 'required',
+            'address' => 'required',
+            'country' => 'required',
+            'phone' => 'required',
+            'is_default' => 'boolean',
+        ]);
+
+        // Actualizar los datos de la dirección
+        $address->update($validatedData);
+
+        // Establecer la dirección como predeterminada si se marca como tal
+        if ($validatedData['is_default']) {
+            auth()->user()->setDefaultAddress($address->id);
+        }
+
+        // Retornar vista o respuesta JSON en función del tipo de solicitud
+        if (request()->wantsJson()) {
+            return response()->json(['message' => 'Dirección actualizada exitosamente'], 200);
+        } else {
+            return redirect()->route('addresses.index')->with('success', 'Dirección actualizada exitosamente');
+        }
+    }
+
+    public function destroy($id)
+    {
+        // Obtener la dirección por su ID
+        $address = Address::findOrFail($id);
+
+        // Eliminar la dirección
         $address->delete();
 
-        return redirect()->route('addresses.index')
-            ->with('success', 'Dirección eliminada exitosamente.');
+        // Retornar vista o respuesta JSON en función del tipo de solicitud
+        if (request()->wantsJson()) {
+            return response()->json(['message' => 'Dirección eliminada exitosamente'], 200);
+        } else {
+            return redirect()->route('addresses.index')->with('success', 'Dirección eliminada exitosamente');
+        }
     }
 }

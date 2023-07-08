@@ -1,67 +1,126 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
+        // Obtener todos los usuarios
         $users = User::all();
 
-        return view('admin.users.index', compact('users'));
+        // Retornar vista o respuesta JSON en función del tipo de solicitud
+        if (request()->wantsJson()) {
+            return response()->json($users, 200);
+        } else {
+            return view('users.index', compact('users'));
+        }
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        // Retornar vista o respuesta JSON en función del tipo de solicitud
+        if (request()->wantsJson()) {
+            return response()->json(['message' => 'Create form'], 200);
+        } else {
+            return view('users.create');
+        }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        // Validación de los campos requeridos
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|min:6',
+        ]);
+
+        // Crear un nuevo usuario con los datos validados
+        $user = User::create([
+            'name' => $validatedData['name'],
+            'email' => $validatedData['email'],
+            'password' => Hash::make($validatedData['password']),
+        ]);
+
+        // Retornar vista o respuesta JSON en función del tipo de solicitud
+        if (request()->wantsJson()) {
+            return response()->json($user, 201);
+        } else {
+            return redirect()->route('users.index')->with('success', 'Usuario creado exitosamente');
+        }
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function show($id)
     {
-        //
+        // Obtener el usuario por su ID
+        $user = User::findOrFail($id);
+
+        // Retornar vista o respuesta JSON en función del tipo de solicitud
+        if (request()->wantsJson()) {
+            return response()->json($user, 200);
+        } else {
+            return view('users.show', compact('user'));
+        }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function edit($id)
     {
-        //
+        // Obtener el usuario por su ID
+        $user = User::findOrFail($id);
+
+        // Retornar vista o respuesta JSON en función del tipo de solicitud
+        if (request()->wantsJson()) {
+            return response()->json(['message' => 'Edit form'], 200);
+        } else {
+            return view('users.edit', compact('user'));
+        }
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        // Obtener el usuario por su ID
+        $user = User::findOrFail($id);
+
+        // Validación de los campos requeridos
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email,' . $user->id,
+            'password' => 'nullable|min:6',
+        ]);
+
+        // Actualizar los datos del usuario con los datos validados
+        $user->name = $validatedData['name'];
+        $user->email = $validatedData['email'];
+        if ($validatedData['password']) {
+            $user->password = Hash::make($validatedData['password']);
+        }
+        $user->save();
+
+        // Retornar vista o respuesta JSON en función del tipo de solicitud
+        if (request()->wantsJson()) {
+            return response()->json(['message' => 'Usuario actualizado exitosamente'], 200);
+        } else {
+            return redirect()->route('users.index')->with('success', 'Usuario actualizado exitosamente');
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        // Obtener el usuario por su ID
+        $user = User::findOrFail($id);
+
+        // Eliminar el usuario
+        $user->delete();
+
+        // Retornar vista o respuesta JSON en función del tipo de solicitud
+        if (request()->wantsJson()) {
+            return response()->json(['message' => 'Usuario eliminado exitosamente'], 200);
+        } else {
+            return redirect()->route('users.index')->with('success', 'Usuario eliminado exitosamente');
+        }
     }
 }

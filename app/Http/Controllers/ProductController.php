@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\Product;
@@ -9,63 +8,125 @@ class ProductController extends Controller
 {
     public function index()
     {
+        // Obtener todos los productos
         $products = Product::all();
 
-        return view('admin.products.index', compact('products'));
+        // Retornar vista o respuesta JSON en función del tipo de solicitud
+        if (request()->wantsJson()) {
+            return response()->json($products, 200);
+        } else {
+            return view('products.index', compact('products'));
+        }
     }
 
     public function create()
     {
-        return view('products.create');
+        // Retornar vista o respuesta JSON en función del tipo de solicitud
+        if (request()->wantsJson()) {
+            return response()->json(['message' => 'Create form'], 200);
+        } else {
+            return view('products.create');
+        }
     }
 
     public function store(Request $request)
     {
-        $request->validate([
+        // Validación de los campos requeridos
+        $validatedData = $request->validate([
             'name' => 'required',
-            'slug_url' => 'required',
-            'stripe_id' => 'required',
+            'slug_url' => 'required|unique:products,slug_url',
+           
             'price' => 'required|numeric',
-            'stripe_default_price' => 'required',
+            'stock' => 'required|integer',
+            'product_code' => 'unique:products,product_code',
+            'category_id' => 'exists:categories,id',
+         
+            'weight' => 'numeric',
+            'length' => 'numeric',
+            'width' => 'numeric',
+            'height' => 'numeric',
         ]);
 
-        Product::create($request->all());
+        // Crear un nuevo producto con los datos validados
+        $product = Product::create($validatedData);
 
-        return redirect()->route('products.index')
-            ->with('success', 'Product created successfully.');
+        // Retornar vista o respuesta JSON en función del tipo de solicitud
+        if (request()->wantsJson()) {
+            return response()->json(['message' => 'Producto creado exitosamente','product'=>$product], 201);
+        } else {
+            return redirect()->route('products.index')->with('success', 'Producto creado exitosamente');
+        }
     }
 
-    public function show(Product $product)
+    public function show($id)
     {
-        return view('products.show', compact('product'));
+        // Obtener el producto por su ID
+        $product = Product::findOrFail($id);
+
+        // Retornar vista o respuesta JSON en función del tipo de solicitud
+        if (request()->wantsJson()) {
+            return response()->json($product, 200);
+        } else {
+            return view('products.show', compact('product'));
+        }
     }
 
-    public function edit(Product $product)
+    public function edit($id)
     {
-        return view('products.edit', compact('product'));
+        // Obtener el producto por su ID
+        $product = Product::findOrFail($id);
+
+        // Retornar vista o respuesta JSON en función del tipo de solicitud
+        if (request()->wantsJson()) {
+            return response()->json(['message' => 'Edit form'], 200);
+        } else {
+            return view('products.edit', compact('product'));
+        }
     }
 
-    public function update(Request $request, Product $product)
+    public function update(Request $request, $id)
     {
-        $request->validate([
+        // Obtener el producto por su ID
+        $product = Product::findOrFail($id);
+
+        // Validación de los campos requeridos
+        $validatedData = $request->validate([
             'name' => 'required',
-            'slug_url' => 'required',
-            'stripe_id' => 'required',
             'price' => 'required|numeric',
-            'stripe_default_price' => 'required',
+            'stock' => 'integer',
+            'product_code' => 'unique:products,product_code,'.$product->id,
+            'category_id' => 'required|exists:categories,id',
+            'status' => 'required',
+            'weight' => 'numeric',
+            'length' => 'numeric',
+            'width' => 'numeric',
+            'height' => 'numeric',
         ]);
 
-        $product->update($request->all());
+        // Actualizar los datos del producto con los datos validados
+        $product->update($validatedData);
 
-        return redirect()->route('products.index')
-            ->with('success', 'Product updated successfully.');
+        // Retornar vista o respuesta JSON en función del tipo de solicitud
+        if (request()->wantsJson()) {
+            return response()->json(['message' => 'Producto actualizado exitosamente'], 200);
+        } else {
+            return redirect()->route('products.index')->with('success', 'Producto actualizado exitosamente');
+        }
     }
 
-    public function destroy(Product $product)
+    public function destroy($id)
     {
+        // Obtener el producto por su ID
+        $product = Product::findOrFail($id);
+
+        // Eliminar el producto
         $product->delete();
 
-        return redirect()->route('products.index')
-            ->with('success', 'Product deleted successfully.');
+        // Retornar vista o respuesta JSON en función del tipo de solicitud
+        if (request()->wantsJson()) {
+            return response()->json(['message' => 'Producto eliminado exitosamente'], 200);
+        } else {
+            return redirect()->route('products.index')->with('success', 'Producto eliminado exitosamente');
+        }
     }
 }

@@ -23,5 +23,13 @@ class Product extends Model
         'width',
         'height'
     ];
+    public function orders()
+    {
+        return $this->belongsToMany(Order::class, 'order_products')->withPivot('quantity');
+    }
+    public function images()
+    {
+        return $this->hasMany(Image::class);
+    }
 
 }

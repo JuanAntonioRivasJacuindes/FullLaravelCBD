@@ -61,4 +61,32 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+
+    public function setDefaultAddress($addressId)
+    {
+        // Buscar la dirección por su ID y asegurarse de que pertenezca al usuario
+        $address = $this->addresses()->findOrFail($addressId);
+
+        // Desmarcar cualquier otra dirección como predeterminada
+        $this->addresses()->update(['is_default' => false]);
+
+        // Establecer la dirección especificada como predeterminada
+        $address->update(['is_default' => true]);
+    }
+    public function getDefaultAddress()
+    {
+        return $this->addresses()->where('is_default', true)->first();
+    }
+
+    public function addresses()
+    {
+        return $this->hasMany(Address::class);
+    }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
+
 }
