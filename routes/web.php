@@ -4,6 +4,8 @@ use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
+use App\Models\Order;
+use App\Models\Product;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,15 +19,20 @@ use App\Http\Controllers\UserController;
 */
 
 Route::get('/', function () {
-    $data = [
-        'john', 'doe'
-    ];
-    return view('welcome')->with('data', json_encode($data));
+    $products = Product::with(['images' => function ($query) {
+        $query->first();
+    }])->where('status', 'active')->get();
+
+    return view('welcome', compact('products'));
+    
 });
 
 Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])->group(function () {
     Route::get('/dashboard', function () {
-        return view('dashboard');
+        $orders = Order::where('user_id', auth()->user()->id)->get();
+
+       
+        return view('dashboard', compact('orders'));
     })->name('dashboard');
 });
 

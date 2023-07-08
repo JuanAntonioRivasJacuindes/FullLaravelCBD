@@ -1,19 +1,31 @@
 <x-guest-layout>
-<div id="my-component"></div>
+<div>
+    <h1>Listado de Productos</h1>
 
-<script>
-  const MyComponent = () => {
-    console.log("ya jalo tu")
-    return (
-      React.createElement('div', { className: 'fade-enter' },
-        'Contenido del componente'
-      )
-    );
-  };
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Precio</th>
+                <th>Stock</th>
+                <th>Código de Producto</th>
+                <th>Categoría</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($products as $product)
+                <tr>
+                    <td>{{ $product->name }}</td>
+                    <td>{{ $product->description }}</td>
+                    <td>{{ $product->price }}</td>
+                    <td>{{ $product->stock }}</td>
+                    <td>{{ $product->product_code }}</td>
+                    <td>{{ $product->category->name }}</td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
+</div>
 
-  ReactDOM.render(
-    React.createElement(MyComponent),
-    document.getElementById('my-component')
-  );
-</script>
 </x-guest-layout>
