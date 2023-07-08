@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Address;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class AddressController extends Controller
@@ -40,12 +41,12 @@ class AddressController extends Controller
             'is_default' => 'boolean',
         ]);
 
+        $user = User::findOrFail(auth()->user()->id);
         // Crear una nueva dirección para el usuario autenticado
-        $address = auth()->user()->addresses()->create($validatedData);
-
+        $address = $user->addresses()->create($validatedData);
         // Establecer la dirección como predeterminada si se marca como tal
         if ($validatedData['is_default']) {
-            auth()->user()->setDefaultAddress($address->id);
+            $user->setDefaultAddress($address->id);
         }
 
         // Retornar vista o respuesta JSON en función del tipo de solicitud
@@ -86,7 +87,7 @@ class AddressController extends Controller
     {
         // Obtener la dirección por su ID
         $address = Address::findOrFail($id);
-
+        $user = User::findOrFail(auth()->user()->id);
         // Validación de los campos requeridos
         $validatedData = $request->validate([
             'full_name' => 'required',
@@ -101,7 +102,7 @@ class AddressController extends Controller
 
         // Establecer la dirección como predeterminada si se marca como tal
         if ($validatedData['is_default']) {
-            auth()->user()->setDefaultAddress($address->id);
+            $user->setDefaultAddress($address->id);
         }
 
         // Retornar vista o respuesta JSON en función del tipo de solicitud

@@ -3,63 +3,63 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $user = Auth::user();
+
+        // Crear una nueva orden
+        $order = new Order();
+        $order->order_id = 'ORD-' . uniqid();
+        $order->user_id = $user->id;
+        $order->address_id = $request->input('address_id');
+        $order->amount = 0; // Se calculará más adelante
+        $order->status = 'pending';
+        $order->payment_method = $request->input('payment_method');
+        $order->transaction_id = $request->input('transaction_id');
+        $order->save();
+
+        // Agregar productos a la orden
+        $products = $request->input('products', []);
+        foreach ($products as $productId => $quantity) {
+            $product = Product::find($productId);
+            if ($product) {
+                $order->products()->attach($product->id, ['quantity' => $quantity]);
+            }
+        }
+
+        // Calcular el total de la orden
+        $order->amount = $order->products()->sum('price');
+        $order->save();
+
+        return response()->json(['message' => 'Orden creada exitosamente.', 'order_id' => $order->order_id], 201);
+    }
+    public function markAsPaid(Order $order)
+    {
+        $order->status = 'paid';
+        $order->save();
+
+        return response()->json(['message' => 'Orden marcada como pagada.'], 200);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Order $order)
+    public function markAsCancelled(Order $order)
     {
-        //
+        $order->status = 'cancelled';
+        $order->save();
+
+        return response()->json(['message' => 'Orden marcada como cancelada.'], 200);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Order $order)
+    public function markAsProcessing(Order $order)
     {
-        //
-    }
+        $order->status = 'processing';
+        $order->save();
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Order $order)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Order $order)
-    {
-        //
+        return response()->json(['message' => 'Orden marcada como en proceso.'], 200);
     }
 }
