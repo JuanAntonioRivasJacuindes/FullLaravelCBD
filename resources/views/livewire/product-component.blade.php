@@ -1,107 +1,65 @@
 <div>
-    @if(session()->has('message'))
-        <div class="alert alert-success">{{ session('message') }}</div>
-    @endif
+    <form wire:submit.prevent="store">
+        <div>
+            <label for="name">Name:</label>
+            <input type="text" wire:model="name" id="name">
+        </div>
+        <div>
+            <label for="description">Description:</label>
+            <textarea wire:model="description" id="description"></textarea>
+        </div>
+        <div>
+            <label for="price">Price:</label>
+            <input type="text" wire:model="price" id="price">
+        </div>
+        <div>
+            <label for="stock">Stock:</label>
+            <input type="text" wire:model="stock" id="stock">
+        </div>
+        <div>
+            <label for="product_code">Product Code:</label>
+            <input type="text" wire:model="product_code" id="product_code">
+        </div>
+        <div>
+            <label for="category_id">Category:</label>
+            <select wire:model="category_id" id="category_id">
+                <!-- Add options for categories -->
+            </select>
+        </div>
+        <div>
+            <label for="status">Status:</label>
+            <input type="text" wire:model="status" id="status">
+        </div>
+       <button type="submit" wire:click="store">Save Product</button>
 
-    <button wire:click="create" class="btn btn-success">Crear Producto</button>
+    </form>
 
-    <table class="table mt-4">
+    <hr>
+
+    <table>
         <thead>
             <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Slug URL</th>
-                <th>Stripe ID</th>
-                <th>Precio</th>
-                <th>Stripe Default Price</th>
-                <th>Acciones</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Stock</th>
+                <th>Product Code</th>
+                <th>Category</th>
+                <th>Status</th>
             </tr>
         </thead>
         <tbody>
             @foreach($products as $product)
                 <tr>
-                    <td>{{ $product->id }}</td>
                     <td>{{ $product->name }}</td>
-                    <td>{{ $product->slug_url }}</td>
-                    <td>{{ $product->stripe_id }}</td>
+                    <td>{{ $product->description }}</td>
                     <td>{{ $product->price }}</td>
-                    <td>{{ $product->stripe_default_price }}</td>
-                    <td>
-                        <button wire:click="edit({{ $product->id }})" class="btn btn-primary">Editar</button>
-                        <button wire:click="delete({{ $product->id }})" class="btn btn-danger">Eliminar</button>
-                    </td>
+                    <td>{{ $product->stock }}</td>
+                    <td>{{ $product->product_code }}</td>
+                    <td>{{ $product->category_id }}</td>
+                    <td>{{ $product->status }}</td>
                 </tr>
             @endforeach
         </tbody>
     </table>
-
-    <!-- Modal -->
-    <div wire:ignore.self class="modal fade" id="crudModal" tabindex="-1" role="dialog" aria-labelledby="crudModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="crudModalLabel">
-                        @if($selectedProductId)
-                            Editar Producto
-                        @else
-                            Crear Producto
-                        @endif
-                    </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="form-group">
-                            <label for="name">Nombre</label>
-                            <input type="text" wire:model="name" class="form-control" id="name">
-                            @error('name') <span class="text-danger">{{ $message }}</span> @enderror
-                        </div>
-                        <div class="form-group">
-                            <label for="slug_url">Slug URL</label>
-                            <input type="text" wire:model="slug_url" class="form-control" id="slug_url">
-                            @error('slug_url') <span class="text-danger">{{ $message }}</span> @enderror
-                        </div>
-                        <div class="form-group">
-                            <label for="stripe_id">Stripe ID</label>
-                            <input type="text" wire:model="stripe_id" class="form-control" id="stripe_id">
-                            @error('stripe_id') <span class="text-danger">{{ $message }}</span> @enderror
-                        </div>
-                        <div class="form-group">
-                            <label for="price">Precio</label>
-                            <input type="text" wire:model="price" class="form-control" id
-                            ="price">
-                            @error('price') <span class="text-danger">{{ $message }}</span> @enderror
-                        </div>
-                        <div class="form-group">
-                            <label for="stripe_default_price">Stripe Default Price</label>
-                            <input type="text" wire:model="stripe_default_price" class="form-control" id="stripe_default_price">
-                            @error('stripe_default_price') <span class="text-danger">{{ $message }}</span> @enderror
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    @if($selectedProductId)
-                        <button wire:click="update" class="btn btn-primary">Actualizar</button>
-                    @else
-                        <button wire:click="store" class="btn btn-primary">Crear</button>
-                    @endif
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        document.addEventListener('livewire:load', function () {
-            Livewire.on('showModal', () => {
-                $('#crudModal').modal('show');
-            });
-
-            Livewire.on('hideModal', () => {
-                $('#crudModal').modal('hide');
-            });
-        });
-    </script>
 </div>

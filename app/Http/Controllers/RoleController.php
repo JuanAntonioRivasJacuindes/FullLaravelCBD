@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use Spatie\Permission\Models\Role;
@@ -15,7 +16,7 @@ class RoleController extends Controller
         if (request()->wantsJson()) {
             return response()->json($roles, 200);
         } else {
-            return view('roles.index', compact('roles'));
+            return view('admin.roles.index', compact('roles'));
         }
     }
 
@@ -41,7 +42,7 @@ class RoleController extends Controller
 
         // Retornar vista o respuesta JSON en función del tipo de solicitud
         if (request()->wantsJson()) {
-            return response()->json(['message' => 'Rol creado exitosamente','role'=>$role], 201);
+            return response()->json(['message' => 'Rol creado exitosamente', 'role' => $role], 201);
         } else {
             return redirect()->route('roles.index')->with('success', 'Rol creado exitosamente');
         }

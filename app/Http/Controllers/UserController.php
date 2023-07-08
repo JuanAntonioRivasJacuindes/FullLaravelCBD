@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\User;
@@ -16,7 +17,7 @@ class UserController extends Controller
         if (request()->wantsJson()) {
             return response()->json($users, 200);
         } else {
-            return view('users.index', compact('users'));
+            return view('admin.users.index', compact('users'));
         }
     }
 

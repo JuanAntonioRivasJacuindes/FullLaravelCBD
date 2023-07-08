@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\User;
+use Laravel\Fortify\Contracts\LoginResponse;
+
 use App\Actions\Fortify\CreateNewUser;
 use App\Actions\Fortify\ResetUserPassword;
 use App\Actions\Fortify\UpdateUserPassword;
@@ -20,7 +23,30 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->instance(LoginResponse::class, new class implements LoginResponse
+        {
+            public function toResponse($request)
+            {
+                if ($request->wantsJson()) {
+                    $user = User::where('email', $request->email)->first();
+                    if ($user->hasRole('Administrator')) {
+
+                        return response()->json([
+                            'message' => 'Success', 'status' => True,
+                            "token" => $user->createToken($request->email)->plainTextToken,
+
+                        ], 200);
+                    } else {
+                        return response()->json([
+                            'message' => 'Error , no tiene permisos para acceder a esta seccion', 'status' => False,
+
+
+                        ], 200);
+                    }
+                    return redirect()->intended(Fortify::redirects('login'));
+                }
+            }
+        });
     }
 
     /**
@@ -34,7 +60,7 @@ class FortifyServiceProvider extends ServiceProvider
         Fortify::resetUserPasswordsUsing(ResetUserPassword::class);
 
         RateLimiter::for('login', function (Request $request) {
-            $throttleKey = Str::transliterate(Str::lower($request->input(Fortify::username())).'|'.$request->ip());
+            $throttleKey = Str::transliterate(Str::lower($request->input(Fortify::username())) . '|' . $request->ip());
 
             return Limit::perMinute(5)->by($throttleKey);
         });

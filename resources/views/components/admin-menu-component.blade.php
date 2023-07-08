@@ -19,5 +19,10 @@
             Productos
         </x-responsive-nav-link>
     </li>
+    <li>
+        <x-responsive-nav-link href="{{ route('category.index') }}" :active="request()->routeIs('products.index')">
+            categorias
+        </x-responsive-nav-link>
+    </li>
 
 </ul>

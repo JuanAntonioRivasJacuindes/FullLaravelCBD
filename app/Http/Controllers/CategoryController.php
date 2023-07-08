@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\Category;
@@ -15,7 +16,7 @@ class CategoryController extends Controller
         if (request()->wantsJson()) {
             return response()->json($categories, 200);
         } else {
-            return view('categories.index', compact('categories'));
+            return view('admin.categories.index', compact('categories'));
         }
     }
 
@@ -98,16 +99,16 @@ class CategoryController extends Controller
     {
         // Obtener la categoría por su ID
         $category = Category::findOrFail($id);
-    
+
         // Verificar si la categoría tiene asociaciones con productos
         if ($category->products()->count() > 0) {
             // La categoría tiene asociaciones con productos, mostrar un mensaje de error
             return redirect()->back()->with('error', 'No se puede eliminar la categoría porque tiene productos asociados');
         }
-    
+
         // Eliminar la categoría si no tiene asociaciones con productos
         $category->delete();
-    
+
         // Retornar vista o respuesta JSON en función del tipo de solicitud
         if (request()->wantsJson()) {
             return response()->json(['message' => 'Categoría eliminada exitosamente'], 200);
@@ -115,5 +116,4 @@ class CategoryController extends Controller
             return redirect()->route('categories.index')->with('success', 'Categoría eliminada exitosamente');
         }
     }
-    
 }

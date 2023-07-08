@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\Product;
@@ -15,7 +16,7 @@ class ProductController extends Controller
         if (request()->wantsJson()) {
             return response()->json($products, 200);
         } else {
-            return view('products.index', compact('products'));
+            return view('admin.products.index', compact('products'));
         }
     }
 
@@ -35,12 +36,12 @@ class ProductController extends Controller
         $validatedData = $request->validate([
             'name' => 'required',
             'slug_url' => 'required|unique:products,slug_url',
-           
+
             'price' => 'required|numeric',
             'stock' => 'required|integer',
             'product_code' => 'unique:products,product_code',
             'category_id' => 'exists:categories,id',
-         
+
             'weight' => 'numeric',
             'length' => 'numeric',
             'width' => 'numeric',
@@ -52,16 +53,16 @@ class ProductController extends Controller
 
         // Retornar vista o respuesta JSON en función del tipo de solicitud
         if (request()->wantsJson()) {
-            return response()->json(['message' => 'Producto creado exitosamente','product'=>$product], 201);
+            return response()->json(['message' => 'Producto creado exitosamente', 'product' => $product], 201);
         } else {
             return redirect()->route('products.index')->with('success', 'Producto creado exitosamente');
         }
     }
 
-    public function show($id)
+    public function show($slug)
     {
         // Obtener el producto por su ID
-        $product = Product::findOrFail($id);
+        $product = Product::where('slug_url', $slug)->first();
 
         // Retornar vista o respuesta JSON en función del tipo de solicitud
         if (request()->wantsJson()) {
@@ -94,7 +95,7 @@ class ProductController extends Controller
             'name' => 'required',
             'price' => 'required|numeric',
             'stock' => 'integer',
-            'product_code' => 'unique:products,product_code,'.$product->id,
+            'product_code' => 'unique:products,product_code,' . $product->id,
             'category_id' => 'required|exists:categories,id',
             'status' => 'required',
             'weight' => 'numeric',
