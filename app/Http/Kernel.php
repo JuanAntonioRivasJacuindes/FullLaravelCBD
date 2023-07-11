@@ -4,6 +4,8 @@ namespace App\Http;
 
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
+use Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful;
+
 class Kernel extends HttpKernel
 {
     /**
@@ -32,7 +34,7 @@ class Kernel extends HttpKernel
         //
         'permission' => \App\Http\Middleware\PermissionMiddleware::class,
         'admin' => \App\Http\Middleware\AdminMiddleware::class,
-];
+    ];
     protected $middlewareGroups = [
         'web' => [
             \App\Http\Middleware\EncryptCookies::class,
@@ -44,8 +46,8 @@ class Kernel extends HttpKernel
         ],
 
         'api' => [
-            // \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
-            \Illuminate\Routing\Middleware\ThrottleRequests::class.':api',
+            \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
+            \Illuminate\Routing\Middleware\ThrottleRequests::class . ':api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
     ];

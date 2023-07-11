@@ -7,6 +7,14 @@ use Illuminate\Http\Request;
 
 class RoleController extends Controller
 {
+    public function assignPermissions(Request $request, Role $role)
+    {
+        $permissions = $request->input('permissions');
+
+        $role->syncPermissions($permissions);
+
+        return response()->json(['message' => 'Permisos asignados al rol correctamente'], 200);
+    }
     public function index()
     {
         // Obtener todos los roles
