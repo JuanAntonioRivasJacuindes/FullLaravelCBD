@@ -14,31 +14,31 @@ class InstallController extends Controller
     function createPermissions() {
 
         //dashboard
-        Permission::create(['name' => 'access_dashboard']);
-        //products
-        Permission::create(['name' => 'create_products']);
-        Permission::create(['name' => 'update_products']);
-        Permission::create(['name' => 'read_products']);
-        Permission::create(['name' => 'delete_products']);
-        //users
-        Permission::create(['name' => 'create_users']);
-        Permission::create(['name' => 'update_users']);
-        Permission::create(['name' => 'read_users']);
-        Permission::create(['name' => 'delete_users']);
-        //roles
-        Permission::create(['name' => 'create_roles']);
-        Permission::create(['name' => 'update_roles']);
-        Permission::create(['name' => 'read_roles']);
-        Permission::create(['name' => 'delete_roles']);
-        //category
-        Permission::create(['name' => 'create_categories']);
-        Permission::create(['name' => 'update_categories']);
-        Permission::create(['name' => 'read_categories']);
-        Permission::create(['name' => 'delete_categories']);
-        //order
-        Permission::create(['name' => 'create_orders']);
-        Permission::create(['name' => 'update_orders']);
-        Permission::create(['name' => 'read_orders']);
-        Permission::create(['name' => 'delete_orders']);
+        Permission::create(['name' => 'access_dashboard','guard_name'=>'sanctum']);
+        //produ,'guard_name'=>'sanctum'cts
+        Permission::create(['name' => 'create_products','guard_name'=>'sanctum']);
+        Permission::create(['name' => 'update_products','guard_name'=>'sanctum']);
+        Permission::create(['name' => 'read_products','guard_name'=>'sanctum']);
+        Permission::create(['name' => 'delete_products','guard_name'=>'sanctum']);
+        //us,'guard_name'=>'sanctum'ers
+        Permission::create(['name' => 'create_users','guard_name'=>'sanctum']);
+        Permission::create(['name' => 'update_users','guard_name'=>'sanctum']);
+        Permission::create(['name' => 'read_users','guard_name'=>'sanctum']);
+        Permission::create(['name' => 'delete_users','guard_name'=>'sanctum']);
+        //ro,'guard_name'=>'sanctum'les
+        Permission::create(['name' => 'create_roles','guard_name'=>'sanctum']);
+        Permission::create(['name' => 'update_roles','guard_name'=>'sanctum']);
+        Permission::create(['name' => 'read_roles','guard_name'=>'sanctum']);
+        Permission::create(['name' => 'delete_roles','guard_name'=>'sanctum']);
+        //categ,'guard_name'=>'sanctum'ory
+        Permission::create(['name' => 'create_categories','guard_name'=>'sanctum']);
+        Permission::create(['name' => 'update_categories','guard_name'=>'sanctum']);
+        Permission::create(['name' => 'read_categories','guard_name'=>'sanctum']);
+        Permission::create(['name' => 'delete_categories','guard_name'=>'sanctum']);
+        //or,'guard_name'=>'sanctum'der
+        Permission::create(['name' => 'create_orders','guard_name'=>'sanctum']);
+        Permission::create(['name' => 'update_orders','guard_name'=>'sanctum']);
+        Permission::create(['name' => 'read_orders','guard_name'=>'sanctum']);
+        Permission::create(['name' => 'delete_orders','guard_name'=>'sanctum']);
     }
 }

@@ -4,9 +4,27 @@ namespace App\Http\Controllers;
 
 use Spatie\Permission\Models\Role;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Permission;
 
 class RoleController extends Controller
 {
+    public function revokePermissions(Request $request, Role $role)
+    {
+       
+        if (!$role) {
+            return response()->json(['message' => 'Rol no encontrado'], 404);
+        }
+
+        $permissionIds = $request->input('permissions', []);
+
+        $permissions = Permission::whereIn('name', $permissionIds)->get();
+
+        foreach ($permissions as $permission) {
+            $role->revokePermissionTo($permission);
+        }
+
+        return response()->json(['message' => 'Permisos revocados correctamente'], 200);
+    }
     public function assignPermissions(Request $request, Role $role)
     {
         $permissions = $request->input('permissions');
@@ -14,6 +32,12 @@ class RoleController extends Controller
         $role->syncPermissions($permissions);
 
         return response()->json(['message' => 'Permisos asignados al rol correctamente'], 200);
+    }
+    function getPermissions(Role $role)
+    {
+
+        $permissions = $role->permissions;
+        return response()->json(['permissions' => $permissions], 200);
     }
     public function index()
     {

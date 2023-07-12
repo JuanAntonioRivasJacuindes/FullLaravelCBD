@@ -2,11 +2,56 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Image;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
+    public function getProductImages($productId)
+    {
+        $product = Product::findOrFail($productId);
+        $images = $product->images;
+
+        return response()->json(['images' => $images], 200);
+    }
+
+    public function uploadImage(Request $request, $productId)
+    {
+        $product = Product::findOrFail($productId);
+
+        // Validar si se ha enviado una imagen
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+
+            // Guardar la imagen en el almacenamiento
+            $path = $image->store('product_images', 'public');
+
+            // Crear un registro de imagen asociado al producto
+            $product->images()->create([
+                'name' => $image->getClientOriginalName(),
+                'url' => $path
+            ]);
+
+            return response()->json(['message' => 'Imagen cargada correctamente'], 200);
+        }
+
+        return response()->json(['message' => 'No se ha proporcionado ninguna imagen'], 400);
+    }
+
+    public function deleteImage($imageId)
+    {
+        $image = Image::findOrFail($imageId);
+
+        // Eliminar la imagen del almacenamiento
+        Storage::disk('public')->delete($image->url);
+
+        // Eliminar el registro de imagen
+        $image->delete();
+
+        return response()->json(['message' => 'Imagen eliminada correctamente'], 200);
+    }
     public function index()
     {
         // Obtener todos los productos
@@ -35,17 +80,13 @@ class ProductController extends Controller
         // Validación de los campos requeridos
         $validatedData = $request->validate([
             'name' => 'required',
-            'slug_url' => 'required|unique:products,slug_url',
+
 
             'price' => 'required|numeric',
-            'stock' => 'required|integer',
-            'product_code' => 'unique:products,product_code',
-            'category_id' => 'exists:categories,id',
 
-            'weight' => 'numeric',
-            'length' => 'numeric',
-            'width' => 'numeric',
-            'height' => 'numeric',
+            'product_code' => 'unique:products,product_code',
+            'category_id' => 'nullable|exists:categories,id',
+
         ]);
 
         // Crear un nuevo producto con los datos validados

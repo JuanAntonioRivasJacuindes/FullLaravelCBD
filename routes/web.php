@@ -1,10 +1,12 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\InstallController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
+
 use App\Models\Order;
 use App\Models\Product;
 
@@ -18,7 +20,8 @@ use App\Models\Product;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
+Route::get('/install/create-roles', [InstallController::class, 'createRoles']);
+Route::get('/install/create-permissions', [InstallController::class, 'createPermissions']);
 Route::get('/', function () {
     $products = Product::with(['images' => function ($query) {
         $query->first();
@@ -26,7 +29,6 @@ Route::get('/', function () {
 
     return view('welcome', compact('products'));
 });
-Route::resource('/products', ProductController::class)->only(['show']);
 
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
     Route::get('/dashboard', function () {
