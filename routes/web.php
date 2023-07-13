@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\InstallController;
+use App\Http\Controllers\PayPalPaymentController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
@@ -20,6 +21,11 @@ use App\Models\Product;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::get('handle-payment', [PayPalPaymentController::class,'handlePayment'])->name('make.payment');
+Route::get('cancel-payment', [PayPalPaymentController::class,'paymentCancel'])->name('cancel.payment');
+Route::get('payment-success', [PayPalPaymentController::class,'paymentSuccess'])->name('success.payment');
+
+
 Route::get('/install/create-roles', [InstallController::class, 'createRoles']);
 Route::get('/install/create-permissions', [InstallController::class, 'createPermissions']);
 Route::get('/', function () {

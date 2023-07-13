@@ -172,6 +172,8 @@ return [
         App\Providers\FortifyServiceProvider::class,
         App\Providers\JetstreamServiceProvider::class,
         Darryldecode\Cart\CartServiceProvider::class,
+        Srmklive\PayPal\Providers\PayPalServiceProvider::class,
+
     ])->toArray(),
 
     /*
@@ -186,6 +188,7 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
+        'PayPal' => Srmklive\PayPal\Facades\PayPal::class,
         'Cart' => Darryldecode\Cart\Facades\CartFacade::class,
         // 'Example' => App\Facades\Example::class,
     ])->toArray(),
