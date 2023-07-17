@@ -14,7 +14,12 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                sans: ['Poppins', 'sans-serif'],
+                'sans':['Poppins', 'sans-serif'],
+                'serif': ['ui-serif', 'Georgia'],
+                'mono': ['ui-monospace', 'SFMono-Regular'],
+                'display': ['Oswald'],
+                'body': ['Hoefler Text', 'serif'],
 
             },
             colors: {
@@ -23,6 +28,7 @@ export default {
                 background:"#f4faec"
               },
         },
+        
     },
 
     plugins: [forms, typography],
