@@ -1,9 +1,8 @@
 scripts:
   - script: |
 
-      cp ./ /../server2
-      composer install --no-dev --no-interaction --prefer-dist
 
+      echo "Directorio de trabajo: $PWD"
       # Configurar variables de entorno
       cp .env.example .env
       # Generar clave de aplicación
