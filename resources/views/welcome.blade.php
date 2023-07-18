@@ -1,30 +1,50 @@
 <x-guest-layout>
     <header class="text-gray-600 body-font">
         <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
-            <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0 ">
-                <div class="w-36 sm:w-24 m-auto">
+            <div class="w-2/3 sm:w-1/6 mb-5">
 
-                    <x-application-logo />
-                </div>
-
+                <x-application-logo />
+            </div>
 
 
-            </a>
-            <nav class="md:ml-auto md:mr-auto flex flex-wrap items-center text-base justify-center">
-                <a href="#about" class="mr-5 hover:text-gray-900">Quienes Somos</a>
-                <a href="#beneficts" class="mr-5 hover:text-gray-900">Beneficios</a>
-                <a href="#products" class="mr-5 hover:text-gray-900">Nuestros Productos</a>
+
+
+            <nav class=" flex flex-wrap items-center text-base text-secondary justify-center">
+                <a href="#about" class="mx-2 hover:text-primary ">Quienes Somos</a>
+                <a href="#beneficts" class="mx-2 hover:text-primary ">Beneficios</a>
+                <a href="#products" class="mx-2 hover:text-primary  ">Nuestros Productos</a>
             </nav>
-            <button class="inline-flex items-center border-0 py-1 px-3 focus:outline-none hover:text-gray-900 rounded text-base mt-4 md:mt-0">
-                Contactanos
-            </button>
+            <a href="#contact" class="mx-2 hover:text-primary  ">Contáctanos</a>
+        
         </div>
     </header>
 
     <div class="min-h-screen w-full">
-        <section id="about" class="w-full bg-background p-3 sm:p-32  text-center">
+        <section class="">
+            <div class="container mx-auto flex md:mx-28 my-5 md:flex-row flex-col items-center">
+                <div class="lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-5 md:mb-0 items-center text-center">
+                    <h1 class="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">ACEITE DE CBD
+                       
+                    </h1>
+                    <p class="mb-8 leading-relaxed">Nuestro producto por cada 1ml. contiene
+                        una concentración de 100 mg.
+                    </p>
+                    <div class="flex justify-center">
+                        <x-button>
+                            Comprar
+                        </x-button>
+                        <!-- <button class="inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">Button</button>
+        <button class="ml-4 inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg">Button</button> -->
+                    </div>
+                </div>
+                <div class="lg:max-w-lg lg:w-full md:w-1/2 w-5/6">
+                    <img class="object-cover object-center rounded" alt="hero" src="img\kx-15040g-30_0.png">
+                </div>
+            </div>
+        </section>
+        <section id="about" class="w-full bg-background p-3 sm:px-10 md:px-24  text-center">
 
-            <h2 class="text-5xl font-bold mb-2 bg-clip-text text-secondary ">¿Quiénes somos?</h2>
+            <h2 class="text-4xl font-bold m-3 bg-clip-text text-secondary  ">¿Quiénes somos?</h2>
 
             <p class="sm:m-5 m-5 text-left sm:text-center text-secondary">
                 Somos una empresa líder en la
@@ -48,19 +68,20 @@
 
 
         <section id="beneficts" class="w-full bg-background p-3   text-center text-secondary body-font">
-            <h2 class="text-5xl font-bold mb-2 bg-clip-text text-secondary ">Beneficios</h2>
+            <h2 class="text-4xl font-bold mb-8 bg-clip-text text-secondary ">Beneficios</h2>
 
 
 
             <div class="flex items-center lg:w-5/6 mx-auto border-b pb-10 mb-10 border-primary sm:flex-row flex-col">
                 <div class="sm:w-32 sm:h-32 h-20 w-20 sm:mr-10 inline-flex items-center justify-center rounded-full bg-primary text-secondary flex-shrink-0">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="sm:w-16 sm:h-16 w-10 h-10">
-                        <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm-2.625 6c-.54 0-.828.419-.936.634a1.96 1.96 0 00-.189.866c0 .298.059.605.189.866.108.215.395.634.936.634.54 0 .828-.419.936-.634.13-.26.189-.568.189-.866 0-.298-.059-.605-.189-.866-.108-.215-.395-.634-.936-.634zm4.314.634c.108-.215.395-.634.936-.634.54 0 .828.419.936.634.13.26.189.568.189.866 0 .298-.059.605-.189.866-.108.215-.395.634-.936.634-.54 0-.828-.419-.936-.634a1.96 1.96 0 01-.189-.866c0-.298.059-.605.189-.866zm-4.34 7.964a.75.75 0 01-1.061-1.06 5.236 5.236 0 013.73-1.538 5.236 5.236 0 013.695 1.538.75.75 0 11-1.061 1.06 3.736 3.736 0 00-2.639-1.098 3.736 3.736 0 00-2.664 1.098z" clip-rule="evenodd" />
+                        <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm-2.625 6c-.54 0-.828.419-.936.634a1.96 1.96 0 00-.189.866c0 .298.059.605.189.866.108.215.395.634.936.634.54 0 .828-.419.936-.634.13-.26.189-.568.189-.866 0-.298-.059-.605-.189-.866-.108-.215-.395-.634-.936-.634zm4.314.634c.108-.215.395-.634.936-.634.54 0 .828.419.936.634.13.26.189.568.189.866 0 .298-.059.605-.189.866-.108.215-.395.634-.936.634-.54 0-.828-.419-.936-.634a1.96 1.96 0 01-.189-.866c0-.298.059-.605.189-.866zm2.023 6.828a.75.75 0 10-1.06-1.06 3.75 3.75 0 01-5.304 0 .75.75 0 00-1.06 1.06 5.25 5.25 0 007.424 0z" clip-rule="evenodd" />
                     </svg>
 
+
                 </div>
-                <div class="flex-grow sm:text-left text-center mt-6 sm:mt-0">
-                    <h2 class="text-gray-900 text-lg title-font font-medium mb-2">ALIVIO DEL DOLOR</h2>
+                <div class="flex-grow sm:text-left text-center mt-10 sm:mt-0">
+                    <h2 class="text-white bg-primary text-lg title-font font-bold px-2 my-3">ALIVIO DEL DOLOR</h2>
                     <p class="leading-relaxed text-base">El CBD puede ayudar a reducir el dolor crónico y
                         agudo al interactuar con los receptores de dolor en el
                         sistema nervioso.
@@ -70,7 +91,7 @@
             </div>
             <div class="flex items-center lg:w-5/6 mx-auto border-b pb-10 mb-10 border-gray-200 sm:flex-row flex-col">
                 <div class="flex-grow sm:text-left text-center mt-6 sm:mt-0">
-                    <h2 class="text-gray-900 text-lg title-font font-medium mb-2">REDUCCIÓN DE LA INFLAMACIÓN</h2>
+                    <h2 class="text-white bg-primary text-lg title-font font-bold px-2 my-3">REDUCCIÓN DE LA INFLAMACIÓN</h2>
                     <p class="leading-relaxed text-base">Se ha sugerido que el CBD puede tener propiedades
                         antiinflamatorias, lo que podría ser beneficioso para
                         enfermedades inflamatorias como la artritis</p>
@@ -85,7 +106,7 @@
 
                 </div>
             </div>
-            <div class="flex items-center lg:w-5/6 mx-auto sm:flex-row flex-col">
+            <div class="flex items-center lg:w-5/6 mx-auto border-b pb-10 mb-10 border-gray-200 sm:flex-row flex-col">
                 <div class="sm:w-32 sm:h-32 h-20 w-20 sm:mr-10 inline-flex items-center justify-center rounded-full bg-primary text-secondary flex-shrink-0">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="sm:w-16 sm:h-16 w-10 h-10">
                         <path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z" />
@@ -93,7 +114,7 @@
 
                 </div>
                 <div class="flex-grow sm:text-left text-center mt-6 sm:mt-0">
-                    <h2 class="text-gray-900 text-lg title-font font-medium mb-2">ALIVIO DE ESTRÉS Y ANSIEDAD</h2>
+                    <h2 class="text-white bg-primary text-lg title-font font-bold px-2 my-3">ALIVIO DE ESTRÉS Y ANSIEDAD</h2>
                     <p class="leading-relaxed text-base">Muchas personas encuentran que el CBD puede
                         ayudar a reducir el estrés y la ansiedad, y algunos
                         estudios respaldan esta afirmación.
@@ -104,7 +125,7 @@
 
             <div class="flex items-center lg:w-5/6 mx-auto border-b pb-10 mb-10 border-gray-200 sm:flex-row flex-col">
                 <div class="flex-grow sm:text-left text-center mt-6 sm:mt-0">
-                    <h2 class="text-gray-900 text-lg title-font font-medium mb-2">MEJORA DEL SUEÑO
+                    <h2 class="text-white bg-primary text-lg title-font font-bold px-2 my-3">MEJORA DEL SUEÑO
                     </h2>
                     <p class="leading-relaxed text-base">El CBD puede tener un efecto calmante y relajante, lo
                         que podría ayudar a mejorar la calidad del sueño en
@@ -113,19 +134,21 @@
 
                 </div>
                 <div class="sm:w-32 sm:order-none order-first sm:h-32 h-20 w-20 sm:ml-10 inline-flex items-center justify-center rounded-full bg-primary text-secondary flex-shrink-0">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="sm:w-16 sm:h-16 w-10 h-10">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="sm:w-16 sm:h-16 w-10 h-10">
+                        <path d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 003.463-.69.75.75 0 01.981.98 10.503 10.503 0 01-9.694 6.46c-5.799 0-10.5-4.701-10.5-10.5 0-4.368 2.667-8.112 6.46-9.694a.75.75 0 01.818.162z" clip-rule="evenodd" />
                     </svg>
+
                 </div>
             </div>
-            <div class="flex items-center lg:w-5/6 mx-auto sm:flex-row flex-col">
+            <div class="flex items-center lg:w-5/6 mx-auto border-b pb-10 mb-10 border-gray-200 sm:flex-row flex-col">
                 <div class="sm:w-32 sm:h-32 h-20 w-20 sm:mr-10 inline-flex items-center justify-center rounded-full bg-primary text-secondary flex-shrink-0">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="sm:w-16 sm:h-16 w-10 h-10" viewBox="0 0 512 512">
-                        <path d="M184 0c30.9 0 56 25.1 56 56V456c0 30.9-25.1 56-56 56c-28.9 0-52.7-21.9-55.7-50.1c-5.2 1.4-10.7 2.1-16.3 2.1c-35.3 0-64-28.7-64-64c0-7.4 1.3-14.6 3.6-21.2C21.4 367.4 0 338.2 0 304c0-31.9 18.7-59.5 45.8-72.3C37.1 220.8 32 207 32 192c0-30.7 21.6-56.3 50.4-62.6C80.8 123.9 80 118 80 112c0-29.9 20.6-55.1 48.3-62.1C131.3 21.9 155.1 0 184 0zM328 0c28.9 0 52.6 21.9 55.7 49.9c27.8 7 48.3 32.1 48.3 62.1c0 6-.8 11.9-2.4 17.4c28.8 6.2 50.4 31.9 50.4 62.6c0 15-5.1 28.8-13.8 39.7C493.3 244.5 512 272.1 512 304c0 34.2-21.4 63.4-51.6 74.8c2.3 6.6 3.6 13.8 3.6 21.2c0 35.3-28.7 64-64 64c-5.6 0-11.1-.7-16.3-2.1c-3 28.2-26.8 50.1-55.7 50.1c-30.9 0-56-25.1-56-56V56c0-30.9 25.1-56 56-56z" />
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="sm:w-16 sm:h-16 w-10 h-10">
+                        <path fill-rule="evenodd" d="M9 4.5a.75.75 0 01.721.544l.813 2.846a3.75 3.75 0 002.576 2.576l2.846.813a.75.75 0 010 1.442l-2.846.813a3.75 3.75 0 00-2.576 2.576l-.813 2.846a.75.75 0 01-1.442 0l-.813-2.846a3.75 3.75 0 00-2.576-2.576l-2.846-.813a.75.75 0 010-1.442l2.846-.813A3.75 3.75 0 007.466 7.89l.813-2.846A.75.75 0 019 4.5zM18 1.5a.75.75 0 01.728.568l.258 1.036c.236.94.97 1.674 1.91 1.91l1.036.258a.75.75 0 010 1.456l-1.036.258c-.94.236-1.674.97-1.91 1.91l-.258 1.036a.75.75 0 01-1.456 0l-.258-1.036a2.625 2.625 0 00-1.91-1.91l-1.036-.258a.75.75 0 010-1.456l1.036-.258a2.625 2.625 0 001.91-1.91l.258-1.036A.75.75 0 0118 1.5zM16.5 15a.75.75 0 01.712.513l.394 1.183c.15.447.5.799.948.948l1.183.395a.75.75 0 010 1.422l-1.183.395c-.447.15-.799.5-.948.948l-.395 1.183a.75.75 0 01-1.422 0l-.395-1.183a1.5 1.5 0 00-.948-.948l-1.183-.395a.75.75 0 010-1.422l1.183-.395c.447-.15.799-.5.948-.948l.395-1.183A.75.75 0 0116.5 15z" clip-rule="evenodd" />
                     </svg>
+
                 </div>
                 <div class="flex-grow sm:text-left text-center mt-6 sm:mt-0">
-                    <h2 class="text-gray-900 text-lg title-font font-medium mb-2">APOYO PARA LA SALUD MENTAL</h2>
+                    <h2 class="text-white bg-primary text-lg title-font font-bold px-2 my-3">APOYO PARA LA SALUD MENTAL</h2>
                     <p class="leading-relaxed text-base">Se ha investigado el uso del CBD como una opción de
                         tratamiento coadyuvante para afecciones como la
                         depresión, el trastorno de estrés postraumático y la
@@ -133,30 +156,46 @@
                     </p>
                 </div>
             </div>
-  
-<!-- 
-   <div class="flex items-center lg:w-5/6 mx-auto border-b pb-10 mb-10 border-gray-200 sm:flex-row flex-col">
+
+            <div class="flex items-center lg:w-5/6 mx-auto border-b pb-10 mb-10 border-gray-200 sm:flex-row flex-col">
                 <div class="flex-grow sm:text-left text-center mt-6 sm:mt-0">
-                    <h2 class="text-gray-900 text-lg title-font font-medium mb-2">REDUCCIÓN DE CONVULSIONES </h2>
+                    <h2 class="text-white bg-primary text-lg title-font font-bold px-2 my-3">REDUCCIÓN DE CONVULSIONES </h2>
                     <p class="leading-relaxed text-base">El CBD ha demostrado ser eficaz en el tratamiento de
                         ciertos trastornos convulsivos, como el síndrome de
                         Dravet y el síndrome de Lennox-Gastaut, en algunos
                         casos.
-                        
+
                     </p>
-                    
+
                 </div>
                 <div class="sm:w-32 sm:order-none order-first sm:h-32 h-20 w-20 sm:ml-10 inline-flex items-center justify-center rounded-full bg-primary text-secondary flex-shrink-0">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="sm:w-16 sm:h-16 w-10 h-10" viewBox="0 0 512 512">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="sm:w-16 sm:h-16 w-10 h-10" viewBox="0 0 512 512">
                         <path d="M288 32c0-17.7-14.3-32-32-32s-32 14.3-32 32V240c0 8.8-7.2 16-16 16s-16-7.2-16-16V64c0-17.7-14.3-32-32-32s-32 14.3-32 32V336c0 1.5 0 3.1 .1 4.6L67.6 283c-16-15.2-41.3-14.6-56.6 1.4s-14.6 41.3 1.4 56.6L124.8 448c43.1 41.1 100.4 64 160 64H304c97.2 0 176-78.8 176-176V128c0-17.7-14.3-32-32-32s-32 14.3-32 32V240c0 8.8-7.2 16-16 16s-16-7.2-16-16V64c0-17.7-14.3-32-32-32s-32 14.3-32 32V240c0 8.8-7.2 16-16 16s-16-7.2-16-16V32z" />
                     </svg>
                 </div>
-            </div> 
+            </div>
+            <div class="flex items-center lg:w-5/6 mx-auto border-b pb-10 mb-10 border-gray-200 sm:flex-row flex-col">
+                <div class="sm:w-32 sm:h-32 h-20 w-20 sm:mr-10 inline-flex items-center justify-center rounded-full bg-primary text-secondary flex-shrink-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="sm:w-16 sm:h-16 w-10 h-10" viewBox="0 0 512 512">
+                        <path d="M184 0c30.9 0 56 25.1 56 56V456c0 30.9-25.1 56-56 56c-28.9 0-52.7-21.9-55.7-50.1c-5.2 1.4-10.7 2.1-16.3 2.1c-35.3 0-64-28.7-64-64c0-7.4 1.3-14.6 3.6-21.2C21.4 367.4 0 338.2 0 304c0-31.9 18.7-59.5 45.8-72.3C37.1 220.8 32 207 32 192c0-30.7 21.6-56.3 50.4-62.6C80.8 123.9 80 118 80 112c0-29.9 20.6-55.1 48.3-62.1C131.3 21.9 155.1 0 184 0zM328 0c28.9 0 52.6 21.9 55.7 49.9c27.8 7 48.3 32.1 48.3 62.1c0 6-.8 11.9-2.4 17.4c28.8 6.2 50.4 31.9 50.4 62.6c0 15-5.1 28.8-13.8 39.7C493.3 244.5 512 272.1 512 304c0 34.2-21.4 63.4-51.6 74.8c2.3 6.6 3.6 13.8 3.6 21.2c0 35.3-28.7 64-64 64c-5.6 0-11.1-.7-16.3-2.1c-3 28.2-26.8 50.1-55.7 50.1c-30.9 0-56-25.1-56-56V56c0-30.9 25.1-56 56-56z" />
+                    </svg>
+                </div>
+                <div class="flex-grow sm:text-left text-center mt-6 sm:mt-0">
+                    <h2 class="text-white bg-primary text-lg title-font font-bold px-2 my-3">PROPIEDADES NEUROPROTECTORAS
+                    </h2>
+                    <p class="leading-relaxed text-base">Algunas investigaciones sugieren que el CBD puede
+                        tener efectos neuroprotectores, lo que significa que
+                        podría ayudar a proteger el cerebro de daños o
+                        enfermedades neurodegenerativas.
+                    </p>
+                </div>
+            </div>
 
-    </section>
-    <section id="products">
-        <!-- Contenido de la sección 2 -->
-    </section>
+
+        </section>
+        <section id="products">
+
+        </section>
     </div>
 
 
@@ -178,11 +217,12 @@
     </div>
     <footer class="text-gray-600 body-font position">
         <div class="container px-5 py-8 mx-auto flex items-center sm:flex-row flex-col">
-            <a class="flex title-font font-medium items-center md:justify-start justify-center text-gray-900 w-10 ">
 
-
+            <div class="w-1/3 sm:w-1/12 ">
                 <x-application-logo />
-            </a>
+
+            </div>
+
             <p class="text-sm text-gray-500 sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-gray-200 sm:py-2 sm:mt-0 mt-4">© 2023 CBDIEZ
                 <!-- <a href="https://twitter.com/knyttneve" class="text-gray-600 ml-1" rel="noopener noreferrer" target="_blank">@knyttneve</a> -->
             </p>
@@ -191,18 +231,18 @@
 
 
                 <a class="ml-3 text-gray-500">
-                    <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
+                    <svg class="fill-secondary" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
                         <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"></path>
                     </svg>
                 </a>
                 <a class="ml-3 text-gray-500">
-                    <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
+                    <svg class="fill-secondary" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
                         <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
                         <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zm1.5-4.87h.01"></path>
                     </svg>
                 </a>
                 <a class="ml-3 text-gray-500">
-                    <svg fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="0" class="w-5 h-5" viewBox="0 0 24 24">
+                    <svg class="fill-secondary" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="0" class="w-5 h-5" viewBox="0 0 24 24">
                         <path stroke="none" d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"></path>
                         <circle cx="4" cy="4" r="2" stroke="none"></circle>
                     </svg>

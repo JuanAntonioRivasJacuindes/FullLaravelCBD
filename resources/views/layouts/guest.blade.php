@@ -17,7 +17,8 @@
 
 </head>
 
-<body class="bg-background">
+
+<body class="bg-background" style="background-image: url('img\kx-15040g-30_0.png')">
     <div class="font-sans text-gray-900 antialiased ">
         {{ $slot }}
     </div>
