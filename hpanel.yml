@@ -1,15 +1,15 @@
 scripts:
   - script: |
       # Copiar carpeta public a public_html
-      mkdir -p public_html
-      cp -R public/. public_html/
+      mkdir -p folder
+      # cp -R public/. public_html/
 
       # Copiar el resto del proyecto a la carpeta server
-      mkdir -p server
-      rsync -av --exclude 'public' --exclude '.git' --exclude '.gitignore' . server/
+      mkdir -p servers
+      # rsync -av --exclude 'public' --exclude '.git' --exclude '.gitignore' . server/
 
       # Moverse a la carpeta server
-      cd server
+      # cd server
 
       # Ejecutar composer install
-      composer install --no-dev --no-interaction --prefer-dist
+      # composer install --no-dev --no-interaction --prefer-dist
