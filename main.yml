@@ -1,7 +1,0 @@
-scripts:
-  - script: |
-
-      mkdir -p folder
-
-
-      mkdir -p servers

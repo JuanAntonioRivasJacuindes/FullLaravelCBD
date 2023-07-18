@@ -1,0 +1,3 @@
+scripts:
+  - script: |
+      composer install --no-dev --no-interaction --prefer-dist
