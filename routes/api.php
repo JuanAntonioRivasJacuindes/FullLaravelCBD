@@ -30,9 +30,9 @@ Route::post(RoutePath::for('login', '/login'), [AuthenticatedSessionController::
     ]));
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
-}); 
+});
 
-Route::prefix('admin')->middleware(['auth:sanctum', 'permission:access_dashboard'])->group(function () {
+Route::middleware(['auth:sanctum', 'permission:access_dashboard'])->group(function () {
     // Rutas protegidas por los middlewares "auth" y "AdminMiddleware"
 
 
@@ -49,8 +49,8 @@ Route::prefix('admin')->middleware(['auth:sanctum', 'permission:access_dashboard
     Route::resource('/roles', RoleController::class)->only(['destroy'])->middleware('permission:delete_roles');
     Route::post('/roles/{role}/permissions', [RoleController::class, 'assignPermissions']);
     Route::get('/roles/{role}/permissions', [RoleController::class, 'getPermissions']);
-    Route::delete('/roles/{role}/permissions', [RoleController::class,'revokePermissions']);
-  
+    Route::delete('/roles/{role}/permissions', [RoleController::class, 'revokePermissions']);
+
     Route::resource('/products', ProductController::class)->only(['create', 'store'])->middleware('permission:create_products');
     Route::resource('/products', ProductController::class)->only(['index', 'show'])->middleware('permission:read_products');
     Route::resource('/products', ProductController::class)->only(['edit', 'update'])->middleware('permission:update_products');
@@ -61,7 +61,7 @@ Route::prefix('admin')->middleware(['auth:sanctum', 'permission:access_dashboard
 
     Route::resource('/users', UserController::class)->only(['create', 'store'])->middleware('permission:create_users');
     Route::resource('/users', UserController::class)->only(['index', 'show'])->middleware('permission:read_users');
-    Route::resource('/users', UserController::class)->only(['edit','update'])->middleware('permission:update_users');
+    Route::resource('/users', UserController::class)->only(['edit', 'update'])->middleware('permission:update_users');
     Route::resource('/users', UserController::class)->only(['destroy'])->middleware('permission:delete_users');
 
     Route::resource('/categories', CategoryController::class)->only(['create', 'store'])->middleware('permission:create_categories');

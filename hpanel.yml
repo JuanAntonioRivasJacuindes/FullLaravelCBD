@@ -1,0 +1,19 @@
+scripts:
+  - script: |
+
+      composer install --no-dev --no-interaction --prefer-dist
+
+      # Configurar variables de entorno
+      cp .env.example .env
+
+      # Generar clave de aplicación
+      php artisan key:generate
+
+      # Ejecutar migraciones de base de datos
+      php artisan migrate
+
+      # Limpiar caché
+      php artisan cache:clear
+
+      # Optimizar la carga de la aplicación
+      php artisan optimize
