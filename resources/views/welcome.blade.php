@@ -20,7 +20,10 @@
 
     <div class="min-h-screen w-full">
         <section class=" border-2 p-3 sm:p-10  " id="products">
-            <div class=" container shadow-lg p-5 sm:p-12 w-full mx-auto flex my-5 md:flex-row flex-col items-center">
+            <div class=" container shadow-xl p-5 sm:p-12 w-full mx-auto bg-white flex my-5 md:flex-row flex-col items-center">
+                     <div class="lg:max-w-lg lg:w-full md:w-1/2 w-5/6">
+                    <img class="object-cover object-center max-w-10 mx-auto w-full" alt="hero" src="img\kx-15040g-30_0.png">
+                </div>
                 <div class="lg:flex-grow w-full md:w-1/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-5 md:mb-0 items-center text-center">
                     <h1 class="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">
                         ACEITE DE CBD
@@ -35,9 +38,7 @@
 
                     </div>
                 </div>
-                <div class="lg:max-w-lg lg:w-full md:w-1/2 w-5/6">
-                    <img class="object-cover object-center max-w-10 mx-auto w-full" alt="hero" src="img\kx-15040g-30_0.png">
-                </div>
+         
             </div>
         </section>
         
