@@ -6,8 +6,8 @@
     </x-slot>
 
     <div class="container mx-auto">
-        <x-button>sd</x-button>
-<!-- 
+        
+
 
 
         @if ($orders->isEmpty())
@@ -30,6 +30,6 @@
             </div>
             @endforeach
         </div>
-        @endif -->
+        @endif 
     </div>
 </x-app-layout>
