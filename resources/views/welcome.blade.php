@@ -1,30 +1,29 @@
 <x-guest-layout>
-    <header class="text-gray-600 body-font">
+    <header class="text-gray-600 body-font duration-300">
         <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
             <div class="w-2/3 sm:w-1/6 mb-5">
-
                 <x-application-logo />
+
             </div>
-
-
-
-
-            <nav class=" flex flex-wrap items-center text-base text-secondary justify-center">
+            <nav class="md:ml-auto md:mr-auto flex flex-wrap items-center text-base justify-center">
                 <a href="#about" class="mx-2 hover:text-primary ">Quienes Somos</a>
                 <a href="#beneficts" class="mx-2 hover:text-primary ">Beneficios</a>
                 <a href="#products" class="mx-2 hover:text-primary  ">Nuestros Productos</a>
             </nav>
-            <a href="#contact" class="mx-2 hover:text-primary  ">Contáctanos</a>
-        
+            <a class=" inline-flex items-center text secondary  hover:text-primary outline-none border-0 text-base mt-4 md:mt-0">
+                Contáctanos
+
+            </a>
         </div>
     </header>
 
+
     <div class="min-h-screen w-full">
-        <section class="w-full" id="products">
-            <div class="container w-full mx-auto flex md:mx-28 my-5 md:flex-row flex-col items-center">
+        <section class=" border-2 p-3 sm:p-10  " id="products">
+            <div class=" container shadow-2xl p-5 sm:p-12 w-full mx-auto flex my-5 md:flex-row flex-col items-center">
                 <div class="lg:flex-grow w-full md:w-1/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-5 md:mb-0 items-center text-center">
-                    <h1 class="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">ACEITE DE CBD
-                       
+                    <h1 class="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">
+                        ACEITE DE CBD
                     </h1>
                     <p class="mb-8 leading-relaxed">Nuestro producto por cada 1ml. contiene
                         una concentración de 100 mg.
@@ -33,15 +32,15 @@
                         <x-button>
                             Comprar
                         </x-button>
-                        <!-- <button class="inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">Button</button>
-        <button class="ml-4 inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg">Button</button> -->
+
                     </div>
                 </div>
                 <div class="lg:max-w-lg lg:w-full md:w-1/2 w-5/6">
-                    <img class="object-cover object-center rounded w-full" alt="hero" src="img\kx-15040g-30_0.png">
+                    <img class="object-cover object-center max-w-10 mx-auto w-full" alt="hero" src="img\kx-15040g-30_0.png">
                 </div>
             </div>
         </section>
+        
         <section id="about" class="w-full bg-background p-3 sm:px-10 md:px-24  text-center">
 
             <h2 class="text-4xl font-bold m-3 bg-clip-text text-secondary  ">¿Quiénes somos?</h2>
