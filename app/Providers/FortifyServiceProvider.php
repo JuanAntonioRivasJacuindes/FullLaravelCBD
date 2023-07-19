@@ -43,8 +43,8 @@ class FortifyServiceProvider extends ServiceProvider
 
                         ], 200);
                     }
-                    return redirect()->intended(Fortify::redirects('login'));
                 }
+                return redirect()->intended(Fortify::redirects('login'));
             }
         });
     }

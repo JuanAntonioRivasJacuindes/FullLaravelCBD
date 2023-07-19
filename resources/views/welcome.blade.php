@@ -20,7 +20,7 @@
     </header>
 
     <div class="min-h-screen w-full">
-        <section class="w-full">
+        <section class="w-full" id="products">
             <div class="container w-full mx-auto flex md:mx-28 my-5 md:flex-row flex-col items-center">
                 <div class="lg:flex-grow w-full md:w-1/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-5 md:mb-0 items-center text-center">
                     <h1 class="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">ACEITE DE CBD
@@ -193,9 +193,7 @@
 
 
         </section>
-        <section id="products">
 
-        </section>
     </div>
 
 
