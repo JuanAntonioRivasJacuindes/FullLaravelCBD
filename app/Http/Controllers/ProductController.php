@@ -20,26 +20,28 @@ class ProductController extends Controller
     public function uploadImage(Request $request, $productId)
     {
         $product = Product::findOrFail($productId);
-
-        // Validar si se ha enviado una imagen
-        if ($request->hasFile('image')) {
-            $image = $request->file('image');
-
-            // Guardar la imagen en el almacenamiento
-            $path = $image->store('product_images', 'public');
-
-            // Crear un registro de imagen asociado al producto
-            $product->images()->create([
-                'name' => $image->getClientOriginalName(),
-                'url' => $path
-            ]);
-
-            return response()->json(['message' => 'Imagen cargada correctamente'], 200);
+    
+        // Validar si se han enviado imágenes
+        if ($request->hasFile('images')) {
+            $images = $request->file('images');
+    
+            // Iterar sobre las imágenes y guardarlas en el almacenamiento
+            foreach ($images as $image) {
+                $path = $image->store('product_images', 'public');
+    
+                // Crear un registro de imagen asociado al producto
+                $product->images()->create([
+                    'name' => $image->getClientOriginalName(),
+                    'url' => $path
+                ]);
+            }
+    
+            return response()->json(['message' => 'Imágenes cargadas correctamente'], 200);
         }
-
-        return response()->json(['message' => 'No se ha proporcionado ninguna imagen'], 400);
+    
+        return response()->json(['message' => 'No se han proporcionado imágenes'], 400);
     }
-
+    
     public function deleteImage($imageId)
     {
         $image = Image::findOrFail($imageId);
@@ -134,6 +136,7 @@ class ProductController extends Controller
         // Validación de los campos requeridos
         $validatedData = $request->validate([
             'name' => 'required',
+            'description' => 'required',
             'price' => 'required|numeric',
             'stock' => 'integer',
             'product_code' => 'unique:products,product_code,' . $product->id,
